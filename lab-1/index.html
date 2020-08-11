@@ -13,7 +13,7 @@
 		<h2>สูตรคูณแม่ {{n}}</h2>
 		<h3
 		v-for="i in 12"
-		>{{n}} x {{i}} = {{n*i}}</h3>
+		>{{n}} x {{i}} = {{x(i)}}</h3>
 	</div>
 
 	<script>
@@ -21,6 +21,11 @@
 			el:'#app',
 			data:{
 				n:2
+			},
+			methods:{
+				x: function(row){
+					return this.n*row
+				}
 			},
 			computed:{
 				x2: function(){
