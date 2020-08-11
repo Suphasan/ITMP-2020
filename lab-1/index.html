@@ -11,7 +11,7 @@
 		<input type="number" v-model="n">
 		<div class="space"></div>
 		<h3>สูตรคูณแม่ {{n}}</h3>
-		<h4>{{n}} x 1 = {{n*1}}</h4>
+		<h4>{{n}} x 1 = {{n}}</h4>
 		<h4>{{n}} x 2 = {{n*2}}</h4>
 		<h4>{{n}} x 3 = {{n*3}}</h4>
 		<h4>{{n}} x 4 = {{n*4}}</h4>
@@ -30,6 +30,41 @@
 			el:'#app',
 			data:{
 				n:2
+			},
+			computed:{
+				x2: function(){
+					return this.n*2
+				},
+				x3: function(){
+					return this.n*3
+				},
+				x4: function(){
+					return this.n*4
+				},
+				x5: function(){
+					return this.n*5
+				},
+				x6: function(){
+					return this.n*6
+				},
+				x7: function(){
+					return this.n*7
+				},
+				x8: function(){
+					return this.n*8
+				},
+				x9: function(){
+					return this.n*9
+				},
+				x10: function(){
+					return this.n*10
+				},
+				x11: function(){
+					return this.n*11
+				},
+				x12: function(){
+					return this.n*12
+				},
 			}
 		});
 	</script>
