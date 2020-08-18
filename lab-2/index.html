@@ -8,26 +8,96 @@
 </head>
 <body>
 	<div id="app">
-		
+		<h2>Profile</h2>
+		<h3>Username : {{person.username}}</h3>
+		<h3>Name : {{person.name}}</h3>
+		<h3>E-mail : {{person.email}}</h3>
+		<h3>Phone : {{person.phone}}</h3>
+		<h3>Website : {{person.website}}</h3>
+		<br>
+		<h2>Address</h2>
+		<h3>Street : {{person.address.street}}</h3>
+		<h3>Suite : {{person.address.suite}}</h3>
+		<h3>City : {{person.address.city}}</h3>
+		<h3>Zipcode : {{person.address.zipcode}}</h3>
+		<h3>Geographic Coordinate </h3>
+		<h3>Latitude: {{person.address.geo.lat}}, Longitude: {{person.address.geo.lng}}</h3>
+		<br>
+		<h2>Company Info</h2>
+		<h3>Name : {{person.company.name}}</h3>
+		<h3>CatchPhrase: {{person.company.catchPhrase}}</h3>
+		<h3>Business : {{person.company.bs}}</h3>
+		<br>
+		<h2>Users</h2>
+		<h2 v-for="u in users" :data-id="u.id" @click="viewProf(u)">
+			<img :src="`https://picsum.photos/id/3${u.id}/100/100`" alt=""><br>
+			{{u.username}}
+		</h2>
 	</div>
 	
 
 	<script>
 		fetch('https://jsonplaceholder.typicode.com/users')
 		.then(response => response.json())
-		.then(json => {console.log(json)})
+		.then(json => {
+			console.log(json)
+			app.users = json
+			app.person = json[0]
+		})
+		
+
 		let app = new Vue({
 			el: '#app',
+			methods:{
+				viewProf: function(user){
+					this.person = user
+				}
+			} ,
 			data: {
-				users :[],
+				users :[{
+					id:0,
+					name:'..loading',
+					username:'..loading',
+					email:'..loading',
+					website:'..loading',
+					phone:'..loading' ,
+					address: {
+						street: '..loading',
+						suite: '..loading',
+						city: '..loading',
+						zipcode: '..loading',
+						geo: {
+							lat: '..loading',
+							lng: '..loading'
+						}
+					} ,
+					company:{
+						name : '..loading',
+						catchPhrase : '..loading',
+						bs : '..loading'
+					}
+				}],
 				person:{
 					id:0,
 					name:'..loading',
 					username:'..loading',
 					email:'..loading',
 					website:'..loading',
+					phone:'..loading' ,
+					address: {
+						street: '..loading',
+						suite: '..loading',
+						city: '..loading',
+						zipcode: '..loading',
+						geo: {
+							lat: '..loading',
+							lng: '..loading'
+						}
+					} ,
 					company:{
 						name : '..loading',
+						catchPhrase : '..loading',
+						bs : '..loading'
 					}
 				}	
 			}
