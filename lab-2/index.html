@@ -2,37 +2,55 @@
 <html>
 <head>
 	<title>The Members - ITKMITL Multimedia Programming 2563</title>
-
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<link rel="stylesheet" type="text/css" href="lab.css">
 </head>
 <body>
-	<div id="app">
-		<h2>Profile</h2>
-		<h3>Username : {{person.username}}</h3>
-		<h3>Name : {{person.name}}</h3>
-		<h3>E-mail : {{person.email}}</h3>
-		<h3>Phone : {{person.phone}}</h3>
-		<h3>Website : {{person.website}}</h3>
-		<br>
-		<h2>Address</h2>
-		<h3>Street : {{person.address.street}}</h3>
-		<h3>Suite : {{person.address.suite}}</h3>
-		<h3>City : {{person.address.city}}</h3>
-		<h3>Zipcode : {{person.address.zipcode}}</h3>
-		<h3>Geographic Coordinate </h3>
-		<h3>Latitude: {{person.address.geo.lat}}, Longitude: {{person.address.geo.lng}}</h3>
-		<br>
-		<h2>Company Info</h2>
-		<h3>Name : {{person.company.name}}</h3>
-		<h3>CatchPhrase: {{person.company.catchPhrase}}</h3>
-		<h3>Business : {{person.company.bs}}</h3>
-		<br>
-		<h2>Users</h2>
-		<h2 v-for="u in users" :data-id="u.id" @click="viewProf(u)">
-			<img :src="`https://picsum.photos/id/3${u.id}/100/100`" alt=""><br>
-			{{u.username}}
-		</h2>
+	<div class="container">
+		<div id="app" class="row">
+			<div class="users">
+				<div class="col-sm-4">
+					<h1><u><i>Users</i></u></h1>
+					<h3 v-for="u in users" :data-id="u.id" @click="viewProf(u)">
+						<img :src="`https://picsum.photos/id/3${u.id}/100/100`" alt="">
+						{{u.username}}
+					</h3>
+				</div>
+			</div>
+			<div class="info">
+				<div class="col-sm-2.5">
+					<br>
+					<h2>Profile</h2>
+					<h3>Username : {{person.username}}</h3>
+					<h3>Name : {{person.name}}</h3>
+					<h3>E-mail : {{person.email}}</h3>
+					<h3>Phone : {{person.phone}}</h3>
+					<h3>Website : {{person.website}}</h3>
+				</div>
+				
+				<div class="col-sm-2.5">
+					<br>
+					<h2>Address</h2>
+					<h3>Street : {{person.address.street}}</h3>
+					<h3>Suite : {{person.address.suite}}</h3>
+					<h3>City : {{person.address.city}}</h3>
+					<h3>Zipcode : {{person.address.zipcode}}</h3>
+					<h3>Geographic Coordinate </h3>
+					<h3><i>Latitude: {{person.address.geo.lat}}, Longitude: {{person.address.geo.lng}}</i></h3>
+				</div>
+				
+				<div class="col-sm-2.5">
+					<br>
+					<h2>Company Info</h2>
+					<h3>Name : {{person.company.name}}</h3>
+					<h3>CatchPhrase: {{person.company.catchPhrase}}</h3>
+					<h3>Business : {{person.company.bs}}</h3>
+				</div>
+			</div>
+		</div>
 	</div>
 	
 

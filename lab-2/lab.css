@@ -1,0 +1,17 @@
+body{
+    font-family: 'Kanit';
+    background-color: rgb(196, 226, 226);
+}
+
+.users{
+    color:white;
+    text-shadow: 1px 1px 2px black;
+}
+
+.info{
+    box-shadow:0px 2px 12px rgb(231, 202, 37);
+    text-shadow: 0px 1px 0px rgb(139, 19, 99);
+    padding: .2em;
+    margin-left: 350px;
+    margin-top: 25px;
+}
