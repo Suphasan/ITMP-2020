@@ -56,7 +56,7 @@
 					if(this.time>0){
 						if(e == true){
 							this.correct()
-							this.l -= 2
+							this.l -= 1
 						}
 						else{
 							this.fail()
@@ -65,15 +65,27 @@
 				},
 				correct: function(){
 					this.score += 1
-					this.row += 1
+					if(this.score > 20){
+						this.time += 1
+					}
+					if(this.row > 24){
+						this.row += 0
+					}
+					else{
+						this.row += 1
+					}
+										
 					this.h = rand(0,330)
 					this.pick = rand(1,this.row*this.row)
 
 					console.log("Sharp eyes! Score +1")
 				},
 				fail: function(){
+					this.l += 1
 					this.score -= 1
-					this.time -= 1
+					if(this.row>=2){
+						this.row -= 1
+					}
 					this.h = rand(0,330)
 					this.pick = rand(1,this.row*this.row)
 
