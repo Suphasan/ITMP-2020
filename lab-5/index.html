@@ -1,84 +1,148 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Lab - Multimedia Programming 2563 ITKMITL</title>
-	<link rel="stylesheet" type="text/css" href="../src/reset.css">
-	<link rel="stylesheet" type="text/css" href="lab.css">
-	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Lab 5 - Multimedia Programming 2563 ITKMITL</title>
+    <link rel="stylesheet" type="text/css" href="../src/reset.css">
+    <link rel="stylesheet" type="text/css" href="lab.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
+
 <body>
-	<div id="canvas">
-		<section id="canvas_header">
-			<div>
-				คุณเก็บแยกผลไม้ได้แล้ว {{score}} ผล
-			</div>
-		</section>
-		<section id="canvas_main" 
-		:data-play="play">
-			<main>
-				<div class="box _path" 
-				v-for="i in 14" 
-				:data-pst="i"></div>
-				<div class="box _toggle" data-pst="10" data-isrightarrow="1"></div>
+    <div id="canvas">
+        <section id="canvas_header">
+            <div>
+                คะแนน {{score}}
+            </div>
+        </section>
+        <section id="canvas_main" :data-play="play">
+            <main>
+                <div class="box _path" v-for="i in 14" :data-pst="i"></div>
+                <div class="box _toggle" data-pst="10" :data-isrightarrow="isRightArrow"></div>
 
-				<div class="box _fruit" v-for="f in fruits" 
-				:data-pst="f.pst"></div>
+                <div class="box _fruit" v-for="f in fruits" :data-pst="f.pst" :data-type="f.type"></div>
 
-				<div class="box _origin"></div>
-				<div class="box _12" data-pst="12"></div>
-				<div class="box _16" data-pst="16"></div>
-				
-			</main>
-		</section>
-		<section id="canvas_footer">
-			<div v-if="play" class="btn" id="toggle">
-				Toggle
-			</div>
-			<div v-if="!play" class="btn" id="endgame">
-				End Game
-			</div>
-		</section>
-	</div>
+                <div class="box _origin"></div>
+                <div class="box _12" data-pst="12"></div>
+                <div class="box _16" data-pst="16"></div>
 
-	<script>
-		function rand(start,stop){
-			let shift = (stop-start)+1
-			return Math.floor(Math.random()*100%shift)+start
-		}
-		
-		let nextFruitId = 3
-		let isRightArrow = 1
-		let speed = 1000
-		let app = new Vue({
-			el:'#canvas',
-			data:{
-				isRightArrow: isRightArrow,
-				speed: speed,
-				play:true,
-				turn:0,
-				score:0,
-				fruits:[
-					{id:1,type:'red',pst:5,run:true,step:1},
-					{id:2,type:'red',pst:2,run:true,step:1},
+            </main>
+        </section>
+        <section id="canvas_footer">
+            <div v-if="play" class="btn" id="toggle" @click="toggle()">
+                Toggle Color
+            </div>
+            <div v-if="!play" class="btn" id="endgame" @click="restart">
+                Restart?
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function rand(start, stop) {
+            let shift = (stop - start) + 1
+            return Math.floor(Math.random() * 100 % shift) + start
+        }
+        let nextFruitID = 5
+        let speed = 1000
+        let app = new Vue({
+            el: '#canvas',
+            data: {
+                isRightArrow: 1,
+                play: true,
+                turn: 0,
+                score: 0,
+                fruits: [
+					{id: 1,type: 'red',pst: 6,run: true,step: 1}, 
+					{id: 2,type: 'yellow',pst: 3,run: true,step: 1}
 				]
-			},
-			method:{},
-			computed:{},
-			watch:{
-				turn: function(x){
-					let count = this.fruits.length
-					for (let f in this.fruits){
-						let run = this.fruits[f].run
-						if (run){
-							this.fruits[f].pst = this.fruits[f].pst+1
+            },
+            methods: {
+                toggle: function() {
+                    if (this.isRightArrow == 1) {
+                        this.isRightArrow = 0;
+                    } else {
+                        this.isRightArrow = 1;
+                    }
+                },
+                restart: function() {
+                    location.reload();
+                }
+            },
+            computed: {
+
+            },
+            watch: {
+                turn: function(x) {
+                    let count = this.fruits.length
+                    for (let f in this.fruits) {
+                        //console.log(this.fruits[f].id)
+                        if (this.fruits[f].run) {
+                            this.fruits[f].pst = this.fruits[f].pst+this.fruits[f].step
+                        }
+						
+                        if (this.fruits[f].pst == 10) {
+							if(this.isRightArrow == 1){
+								this.fruits[f].step = 3
+							}
+							else{
+								this.fruits[f].step = 1
+							}
 						}
+
+                        if ((this.fruits[f].pst == 12 || this.fruits[f].pst == 16) && this.fruits[f].run == true) {
+                            if (this.fruits[f].type == 'red' && this.fruits[f].pst == 12) {
+                                this.score++
+                            }
+							else if (this.fruits[f].type == 'yellow' && this.fruits[f].pst == 12) {
+                                this.score--
+							}
+							else if (this.fruits[f].type == 'yellow' && this.fruits[f].pst == 16) {
+                                this.score++
+                            }
+							else if (this.fruits[f].type == 'red' && this.fruits[f].pst == 16) {
+                                this.score--
+                            }
+                            this.fruits[f].run = false
+                        }
+                    }
+
+                    if (this.turn == 60) {
+                        this.play = false
+                        clearInterval(playing)
+                    }
+					
+					let spawn = rand(0,1)
+                    if(spawn == 1){
+						newfruit = rand(0,1)
+						newfruitId = 3
+						if(newfruit == 1){
+							this.fruits.push({id:newfruitId,type:'red',pst:1,run:true,step:1})
+						}
+						else{
+							this.fruits.push({id:newfruitId,type:'yellow',pst:1,run:true,step:1})
+						}
+                        nextFruitID++
+                    }
+
+					if (app.turn>20) {
+						app.speed = 800
 					}
-				}
+					if (app.turn>40) {
+						app.speed = 600
+					}
+					
+                }
+            },
+        })
+
+		setTimeout(function timespeed(){
+			if (app.play) {
+				app.turn++
+				setTimeout(timespeed, app.speed)
 			}
-		})
-		let playing = setInterval(function(){
-			app.turn++
-		},speed)
-	</script>
+		},app.speed)
+    </script>
 </body>
+
 </html>

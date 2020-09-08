@@ -105,6 +105,10 @@ div.box{
 	background-color: red;
 }
 
+.box._fruit[data-type="yellow"]{
+	background-color: yellow;
+}
+
 .box[data-pst="0"]{
 	right:0%;
 	bottom:0%;
